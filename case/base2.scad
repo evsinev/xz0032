@@ -39,6 +39,16 @@ module draw_support(x, y, w, h) {
 
 }
 
+module xz0032_screws(screw_radius) {
+   // screws
+   x_offset = 10;
+   y_offset = 5;
+   for(x=[w_x+x_offset, w_x+w_w-x_offset]) for(y=[0+y_offset, wall_height - y_offset]) {
+     translate([x, y, -10]) cylinder(r=screw_radius, h=50);
+   }
+
+}
+
 module base() {
 
   // base
@@ -73,13 +83,8 @@ module base() {
    draw_support(w_x+w_w, 0, -1,0);
    draw_support(w_x, wall_height, 0, -1);
    draw_support(w_x+w_w, wall_height, -1, -1);
-
-   // screws
-   x_offset = 10;
-   y_offset = 5;
-   for(x=[w_x+x_offset, w_x+w_w-x_offset]) for(y=[0+y_offset, wall_height - y_offset]) {
-     translate([x, y, -10]) cylinder(r=1.6, h=50);
-   }
+   
+   xz0032_screws(1.5);
 }
 
 module xz0032_base2() {

@@ -30,11 +30,12 @@ module draw_support(x, y, w, h) {
    hole=1.5;
    hole_depth=10;
    
+   // support with hole
    difference() {
      translate([x + w*support, y+ h*support, 0]) cube([support,support, depth]);
      translate([x + w * support + support/2 - hole/2
                , y + h * support + support/2 - hole/2, depth-hole_depth]) 
-     cube([hole,hole, hole_depth+20]);
+      cube([hole,hole, hole_depth+20]);
    }
 
 }
@@ -43,7 +44,7 @@ module xz0032_screws(screw_radius) {
    // screws
    x_offset = 10;
    y_offset = 5;
-   for(x=[w_x+x_offset, w_x+w_w-x_offset]) for(y=[0+y_offset, wall_height - y_offset]) {
+   for(x=[w_x+x_offset, w_x+w_w-x_offset]) for(y=[0-y_offset, wall_height + y_offset]) {
      translate([x, y, -10]) cylinder(r=screw_radius, h=50);
    }
 
@@ -61,17 +62,14 @@ module base() {
 
   }
 
-   // walls
-
+   // bottom wall with hole
    difference() {
      translate([w_x,wall_height-thick,0]) cube([w_w, thick, depth]);
      translate([w_x+w_w/2-5, wall_height-2, depth-5.5]) cube([9, 10, 10]);
    }
 
+   // top wall
    translate([w_x, 0, 0]) cube([w_w, thick, depth]);
-
-
-   // translate([wall_width-thick,0,0]) cube([thick, wall_height, depth]);
 
 
    // skirt
@@ -79,8 +77,8 @@ module base() {
    translate([w_x, wall_height]) cube([w_w, skirt_pad,1]);
 
    // support
-   draw_support(w_x, 0, 0,0);
-   draw_support(w_x+w_w, 0, -1,0);
+   draw_support(w_x, -5, 0,0);
+   draw_support(w_x+w_w, -5, -1,0);
    draw_support(w_x, wall_height, 0, -1);
    draw_support(w_x+w_w, wall_height, -1, -1);
    
@@ -103,6 +101,6 @@ module xz0032_base2(type, screw_radius) {
 
 }
 
-// xz0032_base2("model", 1.5);
-// xz0032_base2("holes", 2);
+//xz0032_base2("model", 1.5);
+//xz0032_base2("holes", 2);
 

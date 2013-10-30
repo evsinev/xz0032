@@ -87,9 +87,22 @@ module base() {
    xz0032_screws(1.5);
 }
 
-module xz0032_base2() {
- lcd_pcb();
- translate([outer_width+9, -5.5, 5]) rotate([0, 180, 0]) base();
+module xz0032_base2(type, screw_radius) {
+  if(type=="model") {
+   lcd_pcb();
+   translate([outer_width+9, -5.5, 5]) rotate([0, 180, 0]) base();
+     // xz0032_screws(screw_radius);
+  }
+
+  if(type=="holes") {
+    translate([outer_width+9, -5.5, 5]) rotate([0, 180, 0]) xz0032_screws(screw_radius);
+  }
+
+  if(type=="footprint") {
+  }
+
 }
 
-// xz0032_base2();
+// xz0032_base2("model", 1.5);
+// xz0032_base2("holes", 2);
+
